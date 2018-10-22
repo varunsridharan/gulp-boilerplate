@@ -1,17 +1,16 @@
-# VS Gulp Boilerplate
+# Gulp Boilerplate
 
 This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM6JS => EM5JS`
 
 ## Features / Plugins
-##### Webpack & Babel 
+#### Webpack & Babel 
 * [Babel Core](https://www.npmjs.com/package/babel-core)
 * [Webpack](https://www.npmjs.com/package/webpack)
 * [Loader](https://www.npmjs.com/package/babel-loader)
 * [es2015](https://www.npmjs.com/package/babel-preset-es2015)
 * [Webpack Stream](https://www.npmjs.com/package/webpack-stream)
 
-
-##### Gulp Core
+#### Gulp Core
 * [Gulp Notify](https://www.npmjs.com/package/gulp-notify)
 * [Gulp Util](https://www.npmjs.com/package/gulp-util)
 * [Gulp Concat](https://www.npmjs.com/package/gulp-concat)
@@ -19,12 +18,13 @@ This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM6JS => EM5JS`
 * [Gulp Combine Files](https://www.npmjs.com/package/gulp-combine-files)
 * [Run sequence](https://www.npmjs.com/package/run-sequence)
 
-##### Gulp SCSS/CSS
+#### Gulp SCSS/CSS
 * [Gulp Autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 * [Gulp Clean CSS](https://www.npmjs.com/package/gulp-clean-css)
 * [Gulp sass](https://www.npmjs.com/package/gulp-sass)
 * [Gulp Uglify](https://www.npmjs.com/package/gulp-uglify)
 
+---
 
 ## Usage / Options
 You have to configure the config.js based on your requirement.
@@ -32,7 +32,9 @@ You have to configure the config.js based on your requirement.
 ### Sample config.js
 ```javascript
 module.exports = {
+	
 	project_name : "Your Project Name",
+	
 	/*
 	 * Below Configs Will be used to convert your SCSS Files TO CSS
 	 * Config should be
@@ -51,6 +53,7 @@ module.exports = {
 		 * 6. sourcemap
 		 */
 		"src/scss/style.scss" : "assets/css",
+		
 		/*
 		 * Below File will run all the below task
 		 * scss -- with custom config
@@ -78,13 +81,15 @@ module.exports = {
      * or
      * "source_file" => {dest:"dest_folder", other_config}
      */
-	js:{
+    js:{
+       
         /*
          * Below File Will run all the below task
          * 1. Combine Files
          * 2. Webpack & Babel
          */
         "src/js/script.js" : "assets/js",
+        
         /*
          * Below File will run all the below task
          * Webpack & Babel
