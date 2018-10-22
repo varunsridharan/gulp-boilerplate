@@ -1,28 +1,37 @@
-# Gulp Boilerplate
+# VS Gulp Boilerplate
 
 This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM6JS => EM5JS`
 
 ## Features / Plugins
 #### Webpack & Babel 
+<details>
+<summary>View contents</summary>
 * [Babel Core](https://www.npmjs.com/package/babel-core)
 * [Webpack](https://www.npmjs.com/package/webpack)
 * [Loader](https://www.npmjs.com/package/babel-loader)
 * [es2015](https://www.npmjs.com/package/babel-preset-es2015)
 * [Webpack Stream](https://www.npmjs.com/package/webpack-stream)
+</details>
 
 #### Gulp Core
+<details>
+<summary>View contents</summary>
 * [Gulp Notify](https://www.npmjs.com/package/gulp-notify)
 * [Gulp Util](https://www.npmjs.com/package/gulp-util)
 * [Gulp Concat](https://www.npmjs.com/package/gulp-concat)
 * [Gulp Sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
 * [Gulp Combine Files](https://www.npmjs.com/package/gulp-combine-files)
 * [Run sequence](https://www.npmjs.com/package/run-sequence)
+</details>
 
 #### Gulp SCSS/CSS
+<details>
+<summary>View contents</summary>
 * [Gulp Autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 * [Gulp Clean CSS](https://www.npmjs.com/package/gulp-clean-css)
 * [Gulp sass](https://www.npmjs.com/package/gulp-sass)
 * [Gulp Uglify](https://www.npmjs.com/package/gulp-uglify)
+</details>
 
 ---
 
