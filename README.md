@@ -41,6 +41,36 @@ This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM6JS => EM5JS`
 ## Usage / Options
 You have to configure the config.js based on your requirement.
 
+## Gulp Task List
+
+### scss
+This task will compile all SCSS files that are listed in the config
+
+**Usage :** ` gulp scss `
+
+### js
+This task will compile all JS files that are listed in the config
+
+**Usage :** ` gulp js `
+
+### watch:scss
+This task will watch for any changes that are related to SCSS files which are listed in config and then compile the changed file.
+
+**Usage :** ` gulp watch:scss `
+
+### watch:js
+This task will watch for any changes that are related to JS files which are listed in config and then compile the changed file.
+
+**Usage :** ` gulp watch:js `
+
+### watch
+This task will run 2 sub task
+1. `watch:scss`
+2. `watch:js`
+
+---
+
+
 ### Sample config.js
 ```javascript
 module.exports = {
@@ -112,9 +142,9 @@ module.exports = {
         "src/js/script2.js":{
             dist:"assets/js",
             combine_files:false,
-            webpack:true,
-        }
-	},
+            webpack:true
+        },
+    },
 	
 	default_config:{ /* Please Check Config.js */ }
 }
