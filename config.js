@@ -33,7 +33,6 @@ let $js        = {
 			}
 		}
 	},
-
 	js: {
 		"src/js/script.js": {
 			dist: "assets/js",
@@ -62,7 +61,6 @@ let $js        = {
 			combine_files: true,
 		},
 	},
-
 	default_config: {
 		combine_files: {
 			append: 'gulp-append',
