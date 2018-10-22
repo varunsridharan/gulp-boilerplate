@@ -3,9 +3,8 @@
 This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM6JS => EM5JS`
 
 ## Features / Plugins
-#### Webpack & Babel 
 <details>
-<summary>View contents</summary>
+<summary>Webpack & Babel </summary>
 
 * [Babel Core](https://www.npmjs.com/package/babel-core)
 * [Webpack](https://www.npmjs.com/package/webpack)
@@ -15,9 +14,8 @@ This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM6JS => EM5JS`
 
 </details>
 
-#### Gulp Core
 <details>
-<summary>View contents</summary>
+<summary>Gulp Core</summary>
 
 * [Gulp Notify](https://www.npmjs.com/package/gulp-notify)
 * [Gulp Util](https://www.npmjs.com/package/gulp-util)
@@ -28,9 +26,8 @@ This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM6JS => EM5JS`
 
 </details>
 
-#### Gulp SCSS/CSS
 <details>
-<summary>View contents</summary>
+<summary>Gulp SCSS/CSS</summary>
 
 * [Gulp Autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 * [Gulp Clean CSS](https://www.npmjs.com/package/gulp-clean-css)
