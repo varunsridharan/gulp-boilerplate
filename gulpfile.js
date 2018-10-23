@@ -9,6 +9,7 @@ const $gulp          = require( 'gulp' ),
 	  $babel         = require( 'gulp-babel' ),
 	  $concat        = require( 'gulp-concat' ),
 	  $uglify        = require( 'gulp-uglify' ),
+	  $rollup        = require( 'gulp-better-rollup' ),
 	  $autoprefixer  = require( 'gulp-autoprefixer' ),
 	  $sourcemaps    = require( 'gulp-sourcemaps' ),
 	  $webpack       = require( 'webpack-stream' ),
@@ -23,11 +24,11 @@ try {
 
 }
 
-const $defaults_config = $config.default_config,
-	  isObject         = obj => obj === Object( obj ),
-	  $cwd             = ( $full_path ) => $path.relative( process.cwd(), $full_path ),
-	  isUndefined      = val => val === undefined,
-	  vs_config_value  = function( $array, $src, $dest ) {
+const $defaults_config    = $config.default_config,
+	  isObject            = obj => obj === Object( obj ),
+	  $cwd                = ( $full_path ) => $path.relative( process.cwd(), $full_path ),
+	  isUndefined         = val => val === undefined,
+	  vs_config_value     = function( $array, $src, $dest ) {
 		  if( typeof $dest === "undefined" || $dest === '' ) {
 			  let $_src;
 			  for( $_src in $array ) {
@@ -39,9 +40,9 @@ const $defaults_config = $config.default_config,
 		  }
 		  return $dest;
 	  },
-	  $notice          = ( $notice ) => $gulp.src( '' ).pipe( $notify( $notice ) );
+	  $notice             = ( $notice ) => $gulp.src( '' ).pipe( $notify( $notice ) ),
 
-const vs_file_option      = ( $src, $data, $key, $defaults ) => {
+	  vs_file_option      = ( $src, $data, $key, $defaults ) => {
 		  let $return = { src: $src, options: $defaults, dist: $data };
 
 		  if( false === isUndefined( $data ) && true === isObject( $data ) ) {
@@ -172,7 +173,7 @@ VS_Gulp.prototype.combine_files = function() {
 	let $options = this.option( 'combine_files', $defaults_config.combine_files );
 	if( this.is_active( $config.status.combine_files, $options.options ) ) {
 		this.instance = this.instance.pipe( $combine_files( $options.options ) );
-		this.notice( 'Files Combined' );
+		this.notice( 'Combine Files' );
 	}
 	return this;
 };
@@ -183,7 +184,7 @@ VS_Gulp.prototype.scss          = function() {
 							.on( 'error', function( err ) {
 								$notice( err );
 							} );
-		this.notice( 'SCSS Compiled' );
+		this.notice( 'SCSS' );
 	}
 	return this;
 };
@@ -242,16 +243,7 @@ VS_Gulp.prototype.babel         = function() {
 	if( this.is_active( $config.status.babel, $options.options ) ) {
 		this.instance = this.instance.pipe( $babel( $options.options ) )
 							.on( 'error', $util.log );
-		this.notice( 'Uglify' );
-	}
-	return this;
-};
-VS_Gulp.prototype.uglify        = function() {
-	let $options = this.option( 'uglify', $defaults_config.uglify );
-	if( this.is_active( $config.status.uglify, $options.options ) ) {
-		this.instance = this.instance.pipe( $uglify( $options.options ) )
-							.on( 'error', $util.log );
-		this.notice( 'Uglify' );
+		this.notice( 'Babel' );
 	}
 	return this;
 };
@@ -261,6 +253,31 @@ VS_Gulp.prototype.parcel        = function() {
 		this.instance = this.instance.pipe( $gulp.src( this.src, { read: false } ) );
 		this.instance = this.instance.pipe( $parcel( $options.options ) );
 		this.notice( 'Parcel' );
+	}
+	return this;
+};
+VS_Gulp.prototype.rollup        = function() {
+	let $options = this.option( 'rollup', $defaults_config.rollup );
+	if( this.is_active( $config.status.rollup, $options.options ) ) {
+		if( typeof $options.options.input !== 'undefined' ) {
+			let $input  = ( typeof $options.options.input !== 'undefined' ) ? $options.options.input : {};
+			let $output = ( typeof $options.options.output !== 'undefined' ) ? $options.options.output : null;
+		} else {
+			let $input  = $options.options;
+			let $output = null;
+		}
+		this.instance = this.instance.pipe( $gulp.src( this.src, { read: false } ) );
+		this.instance = this.instance.pipe( $rollup( $input, $output ) );
+		this.notice( 'RollUp' );
+	}
+	return this;
+};
+VS_Gulp.prototype.uglify        = function() {
+	let $options = this.option( 'uglify', $defaults_config.uglify );
+	if( this.is_active( $config.status.uglify, $options.options ) ) {
+		this.instance = this.instance.pipe( $uglify( $options.options ) )
+							.on( 'error', $util.log );
+		this.notice( 'Uglify' );
 	}
 	return this;
 };
