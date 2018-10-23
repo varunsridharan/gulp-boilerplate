@@ -10,6 +10,7 @@ const $gulp          = require( 'gulp' ),
 	  $autoprefixer  = require( 'gulp-autoprefixer' ),
 	  $sourcemaps    = require( 'gulp-sourcemaps' ),
 	  $webpack       = require( 'webpack-stream' ),
+	  $parcel        = require( 'gulp-parcel' ),
 	  $combine_files = require( 'gulp-combine-files' ),
 	  $path          = require( 'path' ),
 	  $config        = require( './config.js' );
@@ -102,7 +103,7 @@ const vs_file_option      = ( $src, $data, $key, $defaults ) => {
 	  },
 	  vs_compile_js       = function( $_path, $show_alert ) {
 		  let $instance = new VS_Gulp( $config.js, $_path, vs_config_value( $config.js, $_path ), $show_alert );
-		  $instance.combine_files().webpack().concat();
+		  $instance.combine_files().parcel().webpack().concat();
 		  $instance.save();
 		  return $instance;
 	  },
@@ -220,12 +221,29 @@ VS_Gulp.prototype.webpack       = function() {
 	}
 	return this;
 };
+VS_Gulp.prototype.parcel        = function() {
+	let $options = this.option( 'parcel', $defaults_config.parcel );
+	if( false !== $options.options ) {
+		this.instance = this.instance.pipe( $gulp.src( this.src, { read: false } ) );
+		this.instance = this.instance.pipe( $parcel( $options.options ) );
+		this.notice( 'Parcel' );
+	}
+	return this;
+};
 VS_Gulp.prototype.save          = function() {
 	let $dest   = ( isObject( this.dist ) ) ? this.dist.dist : this.dist;
-	let $return = this.instance.pipe( $gulp.dest( $dest ) );
-	this.notice( 'Saved' );
-	if( true === this.alert ) {
-		$notice( { title: $config.project_name + ' - ' + this.src, message: this.notices } );
+	let $return = false;
+	if( typeof $dest !== "undefined" ) {
+		this.instance = this.instance.pipe( $gulp.dest( $dest ) );
+		$return       = this.instance;
+		this.notice( 'Saved' );
+		if( true === this.alert ) {
+			$notice( { title: $config.project_name + ' - ' + this.src, message: this.notices } );
+		}
+	} else {
+		$util.log( this.dist );
+		$util.log( this.src );
+		$util.log( this.vars );
 	}
 	return $return;
 };
