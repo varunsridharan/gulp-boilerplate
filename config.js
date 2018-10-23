@@ -25,6 +25,29 @@ module.exports = {
 		"src/js/inline.js": { dist: "assets/combine-js", webpack: false, combine_files: true, },
 	},
 
+	/**
+	 * Settings any feature to false will not trigger for any files untill its
+	 * overridden in file config.
+	 * js:{
+	 *     "your_file_source":{
+	 *         scss:true,
+	 *         dist:"your_file_dist",
+	 *     }
+	 * }
+	 */
+	status: {
+		combine_files: true,
+		minify: true,
+		concat: true,
+		scss: true,
+		sourcemap: true,
+		autoprefixer: true,
+		webpack: true,
+		babel: false,
+		parcel: false,
+		uglify: true,
+	},
+	
 	default_config: {
 		combine_files: { append: 'gulp-append', prepend: 'gulp-prepend', inline: 'gulp-inline', },
 		minify_css: { args: {}, callback: false },
@@ -40,5 +63,6 @@ module.exports = {
 			output: { filename: '[name].js', },
 			module: { rules: [ { test: /\.js$/, loader: 'babel-loader', options: { presets: [ 'es2015' ] } } ] },
 		},
+		parcel:{},
 	},
 };
