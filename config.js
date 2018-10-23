@@ -46,11 +46,12 @@ module.exports = {
 		babel: false,
 		parcel: false,
 		uglify: true,
+		rollup: false,
 	},
 	
 	default_config: {
-		combine_files: { append: 'gulp-append', prepend: 'gulp-prepend', inline: 'gulp-inline', },
-		minify_css: { args: {}, callback: false },
+		combine_files: { append: 'wponion-append', prepend: 'wponion-prepend', inline: 'wponion-inline', },
+		minify: { args: {}, callback: false },
 		concat: {},
 		scss: { outputStyle: "expanded" },
 		sourcemap: "../maps",
@@ -61,8 +62,17 @@ module.exports = {
 		webpack: {
 			mode: "production",
 			output: { filename: '[name].js', },
-			module: { rules: [ { test: /\.js$/, loader: 'babel-loader', options: { presets: [ 'es2015' ] } } ] },
+			module: { rules: [ { test: /\.js$/, loader: 'babel-loader', options: { presets: [ '@babel/env' ] } } ] },
 		},
-		parcel:{},
+		parcel: false,
+		uglify: true,
+		rollup: {
+			input: {
+				plugins: [ $rollup_babel() ],
+			},
+		},
+		babel: {
+			presets: [ '@babel/env' ],
+		},
 	},
 };
