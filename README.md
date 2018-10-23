@@ -1,6 +1,6 @@
 # VS Gulp Boilerplate
 
-This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM6JS => EM5JS`
+This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM-6 JS => EM-5 JS`
 
 ## Features / Plugins
 <details>
@@ -149,3 +149,31 @@ module.exports = {
 	default_config:{ /* Please Check Config.js */ }
 }
 ```
+
+## F.A.Q
+
+### 1. How i can trigger JS / CSS File compile when editing a child file.
+Use can provide gulp about your JS / CSS child files for each and every file. please check the example below
+#### For JAVASCRIPT
+```json
+"js" : {
+	"src/js/core.js":{
+		dist:"assets/js/",
+		watch:["src/js/core-files/*.js"]
+	}
+}
+```
+
+#### For SCSS / CSS
+```json
+"scss" : {
+	"src/scss/core.scss":{
+		dist:"assets/css/",
+		watch:["src/css/core-files/*.scss","src/css/sub-folder/*.*"]
+	}
+}
+```
+
+### 2. How i can write my custom gulp task without modifying the boilerplate source code
+You can write your custom gulp task inside `gulp-custom.js` file which will never get overrided. and its safe to have all your Gulp task inside another file.
+and it automatically dose includes. so you dont have any do anything else. 
