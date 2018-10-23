@@ -10,7 +10,6 @@ project.properties
 *.sublime-project
 *.sublime-workspace
 .sublimelinterrc
-package-lock.json
 
 # Grunt
 /node_modules/
