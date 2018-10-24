@@ -9,13 +9,13 @@ const $gulp          = require( 'gulp' ),
 	  $babel         = require( 'gulp-babel' ),
 	  $concat        = require( 'gulp-concat' ),
 	  $uglify        = require( 'gulp-uglify' ),
-	  $rollup        = require( 'gulp-better-rollup' ),
 	  $autoprefixer  = require( 'gulp-autoprefixer' ),
 	  $sourcemaps    = require( 'gulp-sourcemaps' ),
 	  $webpack       = require( 'webpack-stream' ),
 	  $parcel        = require( 'gulp-parcel' ),
 	  $combine_files = require( 'gulp-combine-files' ),
 	  $path          = require( 'path' ),
+	  $revert_path   = require( 'gulp-revert-path' ),
 	  $config        = require( './config.js' );
 
 try {
@@ -232,7 +232,7 @@ VS_Gulp.prototype.minify        = function() {
 VS_Gulp.prototype.webpack       = function() {
 	let $options = this.option( 'webpack', $defaults_config.webpack );
 	if( this.is_active( $config.status.webpack, $options.options ) ) {
-		this.save();
+		this.instance = this.instance.pipe( $revert_path() );
 		this.instance = this.instance.pipe( $webpack( $options.options ) );
 		this.notice( 'Webpack' );
 	}
@@ -253,22 +253,6 @@ VS_Gulp.prototype.parcel        = function() {
 		this.instance = this.instance.pipe( $gulp.src( this.src, { read: false } ) );
 		this.instance = this.instance.pipe( $parcel( $options.options ) );
 		this.notice( 'Parcel' );
-	}
-	return this;
-};
-VS_Gulp.prototype.rollup        = function() {
-	let $options = this.option( 'rollup', $defaults_config.rollup );
-	if( this.is_active( $config.status.rollup, $options.options ) ) {
-		if( typeof $options.options.input !== 'undefined' ) {
-			let $input  = ( typeof $options.options.input !== 'undefined' ) ? $options.options.input : {};
-			let $output = ( typeof $options.options.output !== 'undefined' ) ? $options.options.output : null;
-		} else {
-			let $input  = $options.options;
-			let $output = null;
-		}
-		this.instance = this.instance.pipe( $gulp.src( this.src, { read: false } ) );
-		this.instance = this.instance.pipe( $rollup( $input, $output ) );
-		this.notice( 'RollUp' );
 	}
 	return this;
 };

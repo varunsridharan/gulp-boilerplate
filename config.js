@@ -1,28 +1,15 @@
 module.exports = {
 	project_name: "Sample",
 
-	scss: {
-		"src/scss/style.scss": { dist: "assets/css", watch: [ 'src/scss/parts/*.scss' ], },
-		"src/scss/style2.scss": { dist: "assets/css/", scss: true, autoprefixer: true, concat: false, minify: true, },
-		"assets/css/style2.css": {
-			dist: "assets/css/",
-			scss: false,
-			autoprefixer: false,
-			minify: false,
-			concat: { filename: 'final.css', src: [ 'assets/css/style.css', 'assets/css/style2.css' ] }
-		}
-	},
+	scss: false,
 
 	js: {
 		"src/js/script.js": {
-			dist: "assets/js", webpack: true,
+			dist: "assets/js",
+			webpack: true,
 			combine_files: false,
 			concat: "script.js",
 		},
-		"src/js/append.js": { dist: "assets/combine-js", webpack: false, combine_files: true, },
-		"src/js/prepend.js": { dist: "assets/combine-js", webpack: false, combine_files: true, },
-		"src/js/nested.js": { dist: "assets/combine-js", webpack: false, combine_files: true, },
-		"src/js/inline.js": { dist: "assets/combine-js", webpack: false, combine_files: true, },
 	},
 
 	/**
@@ -48,7 +35,7 @@ module.exports = {
 		uglify: true,
 		rollup: false,
 	},
-	
+
 	default_config: {
 		combine_files: { append: 'wponion-append', prepend: 'wponion-prepend', inline: 'wponion-inline', },
 		minify: { args: {}, callback: false },
@@ -62,15 +49,10 @@ module.exports = {
 		webpack: {
 			mode: "production",
 			output: { filename: '[name].js', },
-			module: { rules: [ { test: /\.js$/, loader: 'babel-loader', options: { presets: [ '@babel/env' ] } } ] },
+			module: { rules: [ { test: /\.js$/, loader: 'babel-loader', options: { presets: [ 'es2015' ] } } ] },
 		},
 		parcel: false,
 		uglify: true,
-		rollup: {
-			input: {
-				plugins: [ $rollup_babel() ],
-			},
-		},
 		babel: {
 			presets: [ '@babel/env' ],
 		},
