@@ -262,7 +262,7 @@ VS_Gulp.prototype.webpack       = function() {
 	let $options = this.option( 'webpack', 'webpack' );
 	if( this.is_active( $config.status.webpack, $options.options ) ) {
 		this.instance = this.instance.pipe( $revert_path() );
-		this.instance = this.instance.pipe( $webpack( $options.options );
+		this.instance = this.instance.pipe( $webpack( $options.options ) );
 		this.instance = this.instance.pipe( $revert_path() );
 		this.notice( 'Webpack' );
 	}
@@ -317,7 +317,7 @@ VS_Gulp.prototype.save          = function() {
 $gulp.task( 'scss', ( cb ) => vs_compile_all_scss( 0 ) );
 $gulp.task( 'js', ( cb ) => vs_compile_all_js( 0 ) );
 $gulp.task( 'scss:dev', ( cb ) => vs_compile_all_scss( 0, true ) );
-$gulp.task( 'js:dev', ( cb ) => vs_compile_all_js( 0, true ) );\
+$gulp.task( 'js:dev', ( cb ) => vs_compile_all_js( 0, true ) );
 
 // Watch SCSS Files
 $gulp.task( 'watch:scss', function( callback ) {
