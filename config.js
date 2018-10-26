@@ -1,60 +1,106 @@
-module.exports = {
-	project_name: "Sample",
+let $_json               = {};
+$_json[ 'project_name' ] = 'Sample';
+$_json[ 'scss' ]         = false;
+$_json[ 'js' ]           = {
+	"src/js/script.js": {
+		dist: "assets/js",
+		combine_files: false,
+		concat_dev: "script-dev.js",
+		concat: "script.js",
+	},
+};
 
-	scss: false,
-
-	js: {
-		"src/js/script.js": {
-			dist: "assets/js",
-			webpack: true,
-			combine_files: false,
-			concat: "script.js",
+/**
+ * Settings any feature to false will not trigger for any files untill its
+ * overridden in file config.
+ * js:{
+ *     "your_file_source":{
+ *         scss:true,
+ *         dist:"your_file_dist",
+ *     }
+ * }
+ */
+$_json[ 'status' ] = {
+	scss: true,
+	autoprefixer: true,
+	sourcemap: true,
+	webpack: true,
+	babel: false,
+	parcel: false,
+	rollup: false,
+	minify: true,
+	uglify: true,
+	combine_files: true,
+	concat: true,
+};
+$_json[ 'default_config' ] = {
+	/**
+	 * Production Configs.
+	 */
+	combine_files: {
+		append: 'wponion-append',
+		prepend: 'wponion-prepend',
+		inline: 'wponion-inline',
+	},
+	minify: {
+		args: {},
+		callback: false
+	},
+	concat: {},
+	scss: {
+		outputStyle: "expanded"
+	},
+	sourcemap: "../maps",
+	autoprefixer: {
+		browsers: [ "last 2 version", "safari 5", "ie 8", "ie 9", "opera 12.1", "ios 6", "android 4" ],
+		cascade: false
+	},
+	webpack: {
+		mode: "production",
+		output: {
+			filename: '[name].js',
 		},
+		target: "node",
+		module: {
+			rules: [
+				{
+					test: /\.js$/,
+					loader: 'babel-loader',
+					options: {
+						presets: [ 'es2015' ]
+					}
+				}
+			]
+		},
+	},
+	parcel: false,
+	uglify: true,
+	babel: {
+		presets: [ '@babel/env' ],
 	},
 
 	/**
-	 * Settings any feature to false will not trigger for any files untill its
-	 * overridden in file config.
-	 * js:{
-	 *     "your_file_source":{
-	 *         scss:true,
-	 *         dist:"your_file_dist",
-	 *     }
-	 * }
+	 * Development Config.
 	 */
-	status: {
-		combine_files: true,
-		minify: true,
-		concat: true,
-		scss: true,
-		sourcemap: true,
-		autoprefixer: true,
-		webpack: true,
-		babel: false,
-		parcel: false,
-		uglify: true,
-		rollup: false,
-	},
-
-	default_config: {
-		combine_files: { append: 'wponion-append', prepend: 'wponion-prepend', inline: 'wponion-inline', },
-		minify: { args: {}, callback: false },
-		concat: {},
-		scss: { outputStyle: "expanded" },
-		sourcemap: "../maps",
-		autoprefixer: {
-			browsers: [ "last 2 version", "safari 5", "ie 8", "ie 9", "opera 12.1", "ios 6", "android 4" ],
-			cascade: false
+	webpack_dev: {
+		devtool: "inline-source-map",
+		mode: "development",
+		target: "node",
+		output: {
+			filename: '[name].js',
 		},
-		webpack: {
-			mode: "production",
-			output: { filename: '[name].js', },
-			module: { rules: [ { test: /\.js$/, loader: 'babel-loader', options: { presets: [ 'es2015' ] } } ] },
-		},
-		parcel: false,
-		uglify: true,
-		babel: {
-			presets: [ '@babel/env' ],
+		module: {
+			rules: [
+				{
+					test: /\.js$/,
+					loader: 'babel-loader',
+					options: {
+						presets: [ 'es2015' ]
+					}
+				}
+			]
 		},
 	},
+	uglify_dev: false,
 };
+module.exports             = $_json;
