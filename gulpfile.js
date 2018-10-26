@@ -333,3 +333,17 @@ $gulp.task( 'watch', function( callback ) {
 	$runSequence( 'watch:js' );
 	callback();
 } );
+
+$gulp.task( 'watch:scss:dev', function( callback ) {
+	vs_watch_scss( true );
+	callback();
+} );
+$gulp.task( 'watch:js:dev', function( callback ) {
+	vs_watch_js( true );
+	callback();
+} );
+$gulp.task( 'watch:dev', function( callback ) {
+	$runSequence( 'watch:scss:dev' );
+	$runSequence( 'watch:js:dev' );
+	callback();
+} );
