@@ -25,17 +25,15 @@ try {
 }
 
 const vs_watch_js         = ( $is_js_dev = false ) => {
-		  let $src;
-		  for( $src in $config.js ) {
+		  for( let $src in $config.js ) {
 			  $gulp.watch( $src, ( a, b ) => vs_compile_js( $cwd( a[ 'path' ] ), true, $is_js_dev ) );
-			  if( true !== isUndefined( $config.js[ $src ][ 'watch' ] ) ) {
+			  if( false === isUndefined( $config.js[ $src ][ 'watch' ] ) ) {
 				  $gulp.watch( $config.js[ $src ][ 'watch' ], () => vs_compile_js( $src, true, $is_js_dev ) );
 			  }
 		  }
 	  },
 	  vs_watch_scss       = ( $is_scss_dev = false ) => {
-		  let $src;
-		  for( $src in $config.scss ) {
+		  for( let $src in $config.scss ) {
 			  $gulp.watch( $src, ( a, b ) => vs_compile_scss( $cwd( a[ 'path' ] ), true, $is_scss_dev ) );
 			  if( true !== isUndefined( $config.scss[ $src ][ 'watch' ] ) ) {
 				  $gulp.watch( $config.scss[ $src ][ 'watch' ], () => vs_compile_scss( $src, true, $is_scss_dev ) );
@@ -48,8 +46,7 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 	  isUndefined         = val => val === undefined,
 	  vs_config_value     = function( $array, $src, $dest ) {
 		  if( typeof $dest === "undefined" || $dest === '' ) {
-			  let $_src;
-			  for( $_src in $array ) {
+			  for( let $_src in $array ) {
 				  if( $path.normalize( $path.format( $path.parse( $_src ) ) ) === $src || $src === $_src ) {
 					  $dest = $array[ $_src ];
 					  break;
@@ -101,8 +98,7 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 							  $return.src = $_d.src;
 							  delete $_d[ 'src' ];
 						  }
-						  let $k;
-						  for( $k in $defaults ) {
+						  for( let $k in $defaults ) {
 							  if( isUndefined( $_d[ $k ] ) ) {
 								  $_d[ $k ] = $defaults[ $k ];
 							  }
