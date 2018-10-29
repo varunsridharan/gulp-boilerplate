@@ -120,27 +120,35 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 		  return $return;
 	  },
 	  vs_compile_scss     = function( $_path, $show_alert, $is_dev ) {
-		  let $instance = new VS_Gulp( $config.scss, $_path, vs_config_value( $config.scss, $_path ), $show_alert, $is_dev );
-		  $instance.sourcemap();
-		  $instance.combine_files();
-		  $instance.scss();
-		  $instance.autoprefixer();
-		  $instance.concat();
-		  $instance.minify();
-		  $instance.sourcemap( true );
-		  $instance.save();
-		  return $instance;
+		  try {
+			  let $instance = new VS_Gulp( $config.scss, $_path, vs_config_value( $config.scss, $_path ), $show_alert, $is_dev );
+			  $instance.sourcemap();
+			  $instance.combine_files();
+			  $instance.scss();
+			  $instance.autoprefixer();
+			  $instance.concat();
+			  $instance.minify();
+			  $instance.sourcemap( true );
+			  $instance.save();
+			  return $instance;
+		  } catch( e ) {
+			  return e;
+		  }
 	  },
 	  vs_compile_js       = function( $_path, $show_alert, $is_dev ) {
-		  let $instance = new VS_Gulp( $config.js, $_path, vs_config_value( $config.js, $_path ), $show_alert, $is_dev );
-		  $instance.combine_files();
-		  $instance.parcel();
-		  $instance.webpack();
-		  $instance.babel();
-		  $instance.uglify();
-		  $instance.concat();
-		  $instance.save();
-		  return $instance;
+		  try {
+			  let $instance = new VS_Gulp( $config.js, $_path, vs_config_value( $config.js, $_path ), $show_alert, $is_dev );
+			  $instance.combine_files();
+			  $instance.parcel();
+			  $instance.webpack();
+			  $instance.babel();
+			  $instance.uglify();
+			  $instance.concat();
+			  $instance.save();
+			  return $instance;
+		  } catch( e ) {
+			  return e;
+		  }
 	  },
 	  vs_compile_all_scss = function( $current_loop, $is_dev ) {
 		  const $scss_files_keys = Object.keys( $config.scss );
