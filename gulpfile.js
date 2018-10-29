@@ -1,28 +1,51 @@
 const $vs_boilerplate_v = "1.2.0";
 
-const $gulp          = require( 'gulp' ),
-	  $util          = require( 'gulp-util' ),
-	  $scss          = require( 'gulp-sass' ),
-	  $notify        = require( 'gulp-notify' ),
-	  $runSequence   = require( 'run-sequence' ),
-	  $minify_css    = require( 'gulp-clean-css' ),
-	  $babel         = require( 'gulp-babel' ),
-	  $concat        = require( 'gulp-concat' ),
-	  $uglify        = require( 'gulp-uglify' ),
-	  $autoprefixer  = require( 'gulp-autoprefixer' ),
-	  $sourcemaps    = require( 'gulp-sourcemaps' ),
-	  $webpack       = require( 'webpack-stream' ),
-	  $parcel        = require( 'gulp-parcel' ),
-	  $combine_files = require( 'gulp-combine-files' ),
-	  $path          = require( 'path' ),
-	  $revert_path   = require( 'gulp-revert-path' ),
-	  $config        = require( './config.js' );
+const $gulp            = require( 'gulp' ),
+	  $util            = require( 'gulp-util' ),
+	  $scss            = require( 'gulp-sass' ),
+	  $notify          = require( 'gulp-notify' ),
+	  $runSequence     = require( 'run-sequence' ),
+	  $minify_css      = require( 'gulp-clean-css' ),
+	  $babel           = require( 'gulp-babel' ),
+	  $concat          = require( 'gulp-concat' ),
+	  $uglify          = require( 'gulp-uglify' ),
+	  $autoprefixer    = require( 'gulp-autoprefixer' ),
+	  $sourcemaps      = require( 'gulp-sourcemaps' ),
+	  $webpack         = require( 'webpack-stream' ),
+	  $parcel          = require( 'gulp-parcel' ),
+	  $combine_files   = require( 'gulp-combine-files' ),
+	  $path            = require( 'path' ),
+	  $revert_path     = require( 'gulp-revert-path' ),
+	  spawn            = require( 'child_process' ).spawn;
+let $config            = require( './config.js' );
+let $is_config_watched = false;
+let $current_task      = false;
+let $gulpfile_reload;
 
 try {
 	const $custom_gulp = require( './gulp-custom.js' );
 } catch( e ) {
 
 }
+
+const watch_config = () => {
+	if( false === $is_config_watched && false !== $current_task ) {
+		$gulp.watch( './config.js', () => {
+			let $_config = false;
+			try {
+				delete require.cache[ require.resolve( './config.js' ) ];
+				$_config = require( './config.js' );
+			} catch( e ) {
+				console.log( e );
+			}
+
+			if( false !== $_config ) {
+				$config = $_config;
+			}
+		} );
+		$is_config_watched = true;
+	}
+};
 
 const vs_watch_js         = ( $is_js_dev = false ) => {
 		  for( let $src in $config.js ) {
@@ -57,7 +80,14 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 	  },
 	  $notice             = ( $notice ) => $gulp.src( '' ).pipe( $notify( $notice ) ),
 	  vs_file_option      = ( $src, $data, $key, $default_key, $is_dev ) => {
-		  let $defaults  = ( true === $is_dev && false === isUndefined( $defaults_config[ $default_key + '_dev' ] ) ) ? $defaults_config[ $default_key + '_dev' ] : $defaults_config[ $default_key ];
+		  let $defaults = $defaults_config[ $default_key ];
+		  if( true === $is_dev ) {
+			  if( false === isUndefined( $defaults_config[ $default_key + '_dev' ] ) ) {
+				  $defaults = $defaults_config[ $default_key + '_dev' ];
+			  }
+		  }
+
+
 		  let $_defaults = ( false === $config.status[ $key ] ) ? false : $defaults;
 		  let $return    = { src: $src, options: $_defaults, dist: $data };
 
@@ -71,7 +101,7 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 			  if( isObject( $data ) ) {
 				  let $_data = null;
 
-				  if( true === $is_dev && false === $data[ $key + '_dev' ] || false === isUndefined( $data[ $key + '_dev' ] ) ) {
+				  if( true === $is_dev && ( false === $data[ $key + '_dev' ] || false === isUndefined( $data[ $key + '_dev' ] ) ) ) {
 					  $_data = $data[ $key + '_dev' ];
 				  } else if( false === isUndefined( $data[ $key ] ) ) {
 					  $_data = $data[ $key ];
@@ -235,6 +265,7 @@ VS_Gulp.prototype.autoprefixer  = function() {
 VS_Gulp.prototype.concat        = function() {
 	let $options = this.option( 'concat', 'concat' );
 	if( this.is_active( $config.status.concat, $options.options ) ) {
+		console.log( $options );
 		if( isObject( $options.options ) && true !== isUndefined( $options.options.filename ) ) {
 			if( $options.src ) {
 				this.instance = this.instance.pipe( $gulp.src( $options.src ) )
@@ -325,28 +356,52 @@ $gulp.task( 'js:dev', ( cb ) => vs_compile_all_js( 0, true ) );
 
 // Watch SCSS Files
 $gulp.task( 'watch:scss', function( callback ) {
+	if( false === $current_task ) {
+		$current_task = 'watch:scss';
+	}
+	watch_config();
 	vs_watch_scss( false );
 	callback();
 } );
 $gulp.task( 'watch:js', function( callback ) {
+	if( false === $current_task ) {
+		$current_task = 'watch:js';
+	}
+	watch_config();
 	vs_watch_js( false );
 	callback();
 } );
 $gulp.task( 'watch', function( callback ) {
+	if( false === $current_task ) {
+		$current_task = 'watch';
+	}
+	watch_config();
 	$runSequence( 'watch:scss' );
 	$runSequence( 'watch:js' );
 	callback();
 } );
 
 $gulp.task( 'watch:scss:dev', function( callback ) {
+	if( false === $current_task ) {
+		$current_task = 'watch:scss:dev';
+	}
+	watch_config();
 	vs_watch_scss( true );
 	callback();
 } );
 $gulp.task( 'watch:js:dev', function( callback ) {
+	if( false === $current_task ) {
+		$current_task = 'watch:js:dev';
+	}
+	watch_config();
 	vs_watch_js( true );
 	callback();
 } );
 $gulp.task( 'watch:dev', function( callback ) {
+	if( false === $current_task ) {
+		$current_task = 'watch:dev';
+	}
+	watch_config();
 	$runSequence( 'watch:scss:dev' );
 	$runSequence( 'watch:js:dev' );
 	callback();
