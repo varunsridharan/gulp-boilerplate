@@ -21,6 +21,7 @@ let $config            = require( './config.js' );
 let $is_config_watched = false;
 let $current_task      = false;
 let $gulpfile_reload;
+let $watch_lists       = {};
 
 try {
 	const $custom_gulp = require( './gulp-custom.js' );
@@ -41,6 +42,8 @@ const watch_config = () => {
 
 			if( false !== $_config ) {
 				$config = $_config;
+				$runSequence( $current_task );
+				console.log( 'Config Updated !' );
 			}
 		} );
 		$is_config_watched = true;
@@ -49,17 +52,24 @@ const watch_config = () => {
 
 const vs_watch_js         = ( $is_js_dev = false ) => {
 		  for( let $src in $config.js ) {
-			  $gulp.watch( $src, ( a, b ) => vs_compile_js( $cwd( a[ 'path' ] ), true, $is_js_dev ) );
-			  if( false === isUndefined( $config.js[ $src ][ 'watch' ] ) ) {
-				  $gulp.watch( $config.js[ $src ][ 'watch' ], () => vs_compile_js( $src, true, $is_js_dev ) );
+			  if( true === isUndefined( $watch_lists[ $src ] ) ) {
+				  $gulp.watch( $src, ( a, b ) => vs_compile_js( $cwd( a[ 'path' ] ), true, $is_js_dev ) );
+				  $watch_lists[ $src ] = true;
+				  if( false === isUndefined( $config.js[ $src ][ 'watch' ] ) ) {
+					  $gulp.watch( $config.js[ $src ][ 'watch' ], () => vs_compile_js( $src, true, $is_js_dev ) );
+				  }
+
 			  }
 		  }
 	  },
 	  vs_watch_scss       = ( $is_scss_dev = false ) => {
 		  for( let $src in $config.scss ) {
-			  $gulp.watch( $src, ( a, b ) => vs_compile_scss( $cwd( a[ 'path' ] ), true, $is_scss_dev ) );
-			  if( true !== isUndefined( $config.scss[ $src ][ 'watch' ] ) ) {
-				  $gulp.watch( $config.scss[ $src ][ 'watch' ], () => vs_compile_scss( $src, true, $is_scss_dev ) );
+			  if( true === isUndefined( $watch_lists[ $src ] ) ) {
+				  $gulp.watch( $src, ( a, b ) => vs_compile_scss( $cwd( a[ 'path' ] ), true, $is_scss_dev ) );
+				  $watch_lists[ $src ] = true;
+				  if( true !== isUndefined( $config.scss[ $src ][ 'watch' ] ) ) {
+					  $gulp.watch( $config.scss[ $src ][ 'watch' ], () => vs_compile_scss( $src, true, $is_scss_dev ) );
+				  }
 			  }
 		  }
 	  },
