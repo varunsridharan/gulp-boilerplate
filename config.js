@@ -1,12 +1,12 @@
-let $_json               = {};
-$_json[ 'project_name' ] = 'Sample';
-$_json[ 'scss' ]         = false;
-$_json[ 'js' ]           = {
-	"src/js/script.js": {
-		dist: "assets/js",
+let $_json          = {};
+$_json.project_name = 'Sample';
+$_json.scss         = false;
+$_json.js           = {
+	'src/js/script.js': {
+		dist: 'assets/js',
 		combine_files: false,
-		concat_dev: "script-dev.js",
-		concat: "script.js",
+		concat_dev: 'script-dev.js',
+		concat: 'script.js',
 	},
 };
 
@@ -20,7 +20,7 @@ $_json[ 'js' ]           = {
  *     }
  * }
  */
-$_json[ 'status' ] = {
+$_json.status = {
 	scss: true,
 	autoprefixer: true,
 	sourcemap: true,
@@ -33,7 +33,7 @@ $_json[ 'status' ] = {
 	combine_files: true,
 	concat: true,
 };
-$_json[ 'default_config' ] = {
+$_json.default_config = {
 	/**
 	 * Production Configs.
 	 */
@@ -48,19 +48,19 @@ $_json[ 'default_config' ] = {
 	},
 	concat: {},
 	scss: {
-		outputStyle: "expanded"
+		outputStyle: 'expanded'
 	},
-	sourcemap: "../maps",
+	sourcemap: '../maps',
 	autoprefixer: {
-		browsers: [ "last 2 version", "safari 5", "ie 8", "ie 9", "opera 12.1", "ios 6", "android 4" ],
+		browsers: [ 'last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4' ],
 		cascade: false
 	},
 	webpack: {
-		mode: "production",
+		mode: 'production',
 		output: {
 			filename: '[name].js',
 		},
-		target: "node",
+		target: 'node',
 		module: {
 			rules: [
 				{
@@ -83,9 +83,9 @@ $_json[ 'default_config' ] = {
 	 * Development Config.
 	 */
 	webpack_dev: {
-		devtool: "inline-source-map",
-		mode: "development",
-		target: "node",
+		devtool: 'inline-source-map',
+		mode: 'development',
+		target: 'node',
 		output: {
 			filename: '[name].js',
 		},
@@ -103,4 +103,4 @@ $_json[ 'default_config' ] = {
 	},
 	uglify_dev: false,
 };
-module.exports             = $_json;
+module.exports        = $_json;
