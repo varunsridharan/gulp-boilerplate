@@ -10,6 +10,17 @@ $_json.js           = {
 	},
 };
 
+$_json.wppot = {
+	'./index.php': {
+		dist: 'pot.pot',
+		src: './*.php',
+		wppot: {
+			domain: 'domain',
+			package: 'Example project'
+		},
+	},
+};
+
 /**
  * Settings any feature to false will not trigger for any files untill its
  * overridden in file config.
@@ -78,6 +89,7 @@ $_json.default_config = {
 	babel: {
 		presets: [ '@babel/env' ],
 	},
+	wppot: {},
 
 	/**
 	 * Development Config.

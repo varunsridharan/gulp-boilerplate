@@ -16,9 +16,9 @@ const $gulp             = require( 'gulp' ),
 	  $webpack          = require( 'webpack-stream' ),
 	  $parcel           = require( 'gulp-parcel' ),
 	  $combine_files    = require( 'gulp-combine-files' ),
+	  $wppot            = require( 'gulp-wp-pot' ),
 	  $path             = require( 'path' ),
-	  $revert_path      = require( 'gulp-revert-path' ),
-	  spawn             = require( 'child_process' ).spawn;
+	  $revert_path      = require( 'gulp-revert-path' );
 let $config             = require( './config.js' );
 let $is_config_watched  = false;
 let $current_task       = false;
@@ -80,7 +80,7 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 	  $cwd                = ( $full_path ) => $path.relative( process.cwd(), $full_path ),
 	  isUndefined         = val => val === undefined,
 	  vs_config_value     = function( $array, $src, $dest ) {
-		  if( typeof $dest === "undefined" || $dest === '' ) {
+		  if( typeof $dest === 'undefined' || $dest === '' ) {
 			  for( let $_src in $array ) {
 				  if( $path.normalize( $path.format( $path.parse( $_src ) ) ) === $src || $src === $_src ) {
 					  $dest = $array[ $_src ];
@@ -185,6 +185,15 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 			  $instance.concat();
 			  $instance.save();
 			  return $instance;
+		  } catch( e ) {
+			  return e;
+		  }
+	  },
+	  vs_compile_wppot    = function( $_path, $show_alert, $is_dev ) {
+		  try {
+			  let $instance = new VS_Gulp( $config.wppot, $_path, vs_config_value( $config.wppot, $_path ), $show_alert, $is_dev );
+			  $instance.wppot();
+			  $instance.save();
 		  } catch( e ) {
 			  return e;
 		  }
@@ -375,12 +384,36 @@ VS_Gulp.prototype.save          = function() {
 	}
 	return $return;
 };
+VS_Gulp.prototype.wppot         = function() {
+	let $_srcs = this.option( 'src', false );
+	if( $_srcs.options !== undefined ) {
+		this.instance = $gulp.src( $_srcs.options );
+	}
+
+	let $_wppot = this.option( 'wppot', 'wppot' );
+
+	if( $_wppot.options !== undefined ) {
+		console.log( $_wppot.options );
+		this.instance = this.instance.pipe( $wppot( $_wppot.options ) )
+							.on( 'error', $util.log );
+		this.notice( 'WPPot Generated.' );
+	}
+	return this;
+};
 
 // Run Scss Compiler.
 $gulp.task( 'scss', ( cb ) => vs_compile_all_scss( 0 ) );
 $gulp.task( 'js', ( cb ) => vs_compile_all_js( 0 ) );
 $gulp.task( 'scss:dev', ( cb ) => vs_compile_all_scss( 0, true ) );
 $gulp.task( 'js:dev', ( cb ) => vs_compile_all_js( 0, true ) );
+
+$gulp.task( 'wppot', ( cb ) => {
+	if( typeof $config.wppot === 'object' ) {
+		for( let $key in $config.wppot ) {
+			vs_compile_wppot( $key, false, false );
+		}
+	}
+} );
 
 // Watch SCSS Files
 $gulp.task( 'watch:scss', function( callback ) {
