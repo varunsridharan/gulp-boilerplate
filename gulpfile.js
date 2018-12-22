@@ -1,4 +1,5 @@
-const $vs_boilerplate_v = '1.2.0',
+/* global: console */
+const $vs_boilerplate_v = '1.3.0',
 	  vsp_load_module   = ( $module, $defaults = false ) => {
 		  try {
 			  $module = require( $module );
@@ -26,14 +27,14 @@ const $vs_boilerplate_v = '1.2.0',
 	  $combine_files    = vsp_load_module( 'gulp-combine-files' ),
 	  $wppot            = vsp_load_module( 'gulp-wp-pot' ),
 	  $path             = vsp_load_module( 'path' ),
-	  $revert_path      = vsp_load_module( 'gulp-revert-path' ),
-	  $current_task     = false,
-	  $watch_lists      = {};
-let $config             = vsp_load_module( './config.js' );
-let $is_config_watched  = false;
+	  $revert_path      = vsp_load_module( 'gulp-revert-path' );
+let $current_task       = false,
+	$watch_lists        = {},
+	$config             = vsp_load_module( './config.js' ),
+	$is_config_watched  = false;
 
 try {
-	const $custom_gulp = require( './gulp-custom.js' );
+	require( './gulp-custom.js' );
 } catch( e ) {
 
 }
@@ -41,7 +42,7 @@ try {
 const watch_config        = () => {
 		  if( false === $is_config_watched && false !== $current_task ) {
 			  $gulp.watch( './config.js', () => {
-				  let $_config = false;
+				  let $_config = null;
 				  try {
 					  delete require.cache[ require.resolve( './config.js' ) ];
 					  $_config = require( './config.js' );
@@ -61,10 +62,10 @@ const watch_config        = () => {
 	  vs_watch_js         = ( $is_js_dev = false ) => {
 		  for( let $src in $config.js ) {
 			  if( true === isUndefined( $watch_lists[ $src ] ) ) {
-				  $gulp.watch( $src, ( a, b ) => vs_compile_js( $cwd( a[ 'path' ] ), true, $is_js_dev ) );
+				  $gulp.watch( $src, ( a ) => vs_compile_js( $cwd( a.path ), true, $is_js_dev ) );
 				  $watch_lists[ $src ] = true;
-				  if( false === isUndefined( $config.js[ $src ][ 'watch' ] ) ) {
-					  $gulp.watch( $config.js[ $src ][ 'watch' ], () => vs_compile_js( $src, true, $is_js_dev ) );
+				  if( false === isUndefined( $config.js[ $src ].watch ) ) {
+					  $gulp.watch( $config.js[ $src ].watch, () => vs_compile_js( $src, true, $is_js_dev ) );
 				  }
 
 			  }
@@ -73,10 +74,10 @@ const watch_config        = () => {
 	  vs_watch_scss       = ( $is_scss_dev = false ) => {
 		  for( let $src in $config.scss ) {
 			  if( true === isUndefined( $watch_lists[ $src ] ) ) {
-				  $gulp.watch( $src, ( a, b ) => vs_compile_scss( $cwd( a[ 'path' ] ), true, $is_scss_dev ) );
+				  $gulp.watch( $src, ( a, b ) => vs_compile_scss( $cwd( a.path ), true, $is_scss_dev ) );
 				  $watch_lists[ $src ] = true;
-				  if( true !== isUndefined( $config.scss[ $src ][ 'watch' ] ) ) {
-					  $gulp.watch( $config.scss[ $src ][ 'watch' ], () => vs_compile_scss( $src, true, $is_scss_dev ) );
+				  if( true !== isUndefined( $config.scss[ $src ].watch ) ) {
+					  $gulp.watch( $config.scss[ $src ].watch, () => vs_compile_scss( $src, true, $is_scss_dev ) );
 				  }
 			  }
 		  }
@@ -139,12 +140,12 @@ const watch_config        = () => {
 						  let $dist = $return.dist;
 						  if( false === isUndefined( $_d.dist ) ) {
 							  $dist = $_d.dist;
-							  delete $_d[ 'dist' ];
+							  delete $_d.dist;
 						  }
 
 						  if( false === isUndefined( $_d.src ) ) {
 							  $return.src = $_d.src;
-							  delete $_d[ 'src' ];
+							  delete $_d.src;
 						  }
 						  for( let $k in $defaults ) {
 							  if( isUndefined( $_d[ $k ] ) ) {
@@ -443,16 +444,18 @@ VS_Gulp.prototype.wppot         = function() {
 };
 
 // Run Scss Compiler.
-$gulp.task( 'scss', ( cb ) => vs_compile_all_scss( 0 ) );
-$gulp.task( 'js', ( cb ) => vs_compile_all_js( 0 ) );
-$gulp.task( 'scss:dev', ( cb ) => vs_compile_all_scss( 0, true ) );
-$gulp.task( 'js:dev', ( cb ) => vs_compile_all_js( 0, true ) );
+$gulp.task( 'scss', () => vs_compile_all_scss( 0 ) );
+$gulp.task( 'js', () => vs_compile_all_js( 0 ) );
+$gulp.task( 'scss:dev', () => vs_compile_all_scss( 0, true ) );
+$gulp.task( 'js:dev', () => vs_compile_all_js( 0, true ) );
 
 // Runs WPPot Addon.
-$gulp.task( 'wppot', ( cb ) => {
+$gulp.task( 'wppot', () => {
 	if( typeof $config.wppot === 'object' ) {
-		for( let $key in $config.wppot ) {
-			vs_compile_wppot( $key, false, false );
+		if( $config.wppot ) {
+			for( let $key in $config.wppot ) {
+				vs_compile_wppot( $key, false, false );
+			}
 		}
 	}
 } );
