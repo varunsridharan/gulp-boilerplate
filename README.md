@@ -177,3 +177,8 @@ Use can provide gulp about your JS / CSS child files for each and every file. pl
 ### 2. How i can write my custom gulp task without modifying the boilerplate source code
 You can write your custom gulp task inside `gulp-custom.js` file which will never get overrided. and its safe to have all your Gulp task inside another file.
 and it automatically dose includes. so you dont have any do anything else. 
+
+
+---
+## Sponsored By
+[![DigitalOcean](https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/DO_Logo_Horizontal_Blue.png)](https://s.svarun.in/Ef)
