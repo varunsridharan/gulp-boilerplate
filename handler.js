@@ -1,4 +1,5 @@
 const { vsp_load_module, get_cwd, parse_args } = require( './functions' );
+var log                                        = require( 'fancy-log' );
 
 /**
  * Required Imports.
@@ -31,16 +32,20 @@ class GulpHandler {
 	}
 
 	init( resolve, reject ) {
-		this.instance = this.instance.on( 'error', reject );
-		let $promise  = [];
+		log( this.src + ' Started' );
+		if( typeof reject !== 'undefined' ) {
+			this.instance = this.instance.on( 'error', reject );
+		}
+
 		for( let key in this.config ) {
 			if( GulpHandler.prototype[ key ] !== undefined && 'function' === typeof GulpHandler.prototype[ key ] ) {
 				this[ key ]( this.config[ key ] );
 			}
 		}
-		this.instance = this.instance.on( 'end', resolve );
+		if( typeof reject !== 'undefined' ) {
+			this.instance = this.instance.on( 'end', resolve );
+		}
 		return this.instance;
-		//return Promise.all( $promise );
 	}
 
 	/**
@@ -73,11 +78,13 @@ class GulpHandler {
 	 */
 	save() {
 		if( typeof this.config.rename !== 'undefined' ) {
+			log( 'Renaming To ' + this.config.rename );
 			this.instance = this.instance.pipe( $rename( this.config.rename ) );
 		}
 
 		this.instance = this.instance.pipe( $gulp.dest( get_cwd( this.config.dist ) ) );
-
+		log( 'File Saved In ' + this.config.dist );
+		log( ' ' );
 		return this.instance;
 	}
 
@@ -90,7 +97,9 @@ class GulpHandler {
 		if( !this.is_active( $arg ) ) {
 			return;
 		}
+		log( 'SCSS Start' );
 		this.instance = this.instance.pipe( $scss( this.get_config( 'scss', $arg ) ) );
+		log( 'SCSS End' );
 		return this.instance;
 	}
 
@@ -103,9 +112,11 @@ class GulpHandler {
 		if( !this.is_active( $arg ) ) {
 			return;
 		}
+		log( 'Autoprefixer Start' );
 		let $options  = this.get_config( 'autoprefixer', $arg );
 		this.instance = this.instance.pipe( $autoprefixer( $options ) )
 							.on( 'error', $util.log );
+		log( 'Autoprefixer End' );
 		return this.instance;
 	}
 
@@ -118,9 +129,11 @@ class GulpHandler {
 		if( !this.is_active( $arg ) ) {
 			return;
 		}
+		log( 'Uglify Start' );
 		let $options  = this.get_config( 'uglify', $arg );
 		this.instance = this.instance.pipe( $uglify( $options ) )
 							.on( 'error', $util.log );
+		log( 'Uglify End' );
 		return this.instance;
 	}
 
@@ -133,9 +146,11 @@ class GulpHandler {
 		if( !this.is_active( $arg ) ) {
 			return;
 		}
+		log( 'Minify Start' );
 		let $options  = this.get_config( 'minify', $arg );
 		this.instance = this.instance.pipe( $minify_css( $options.options.args, $options.options.callback ) )
 							.on( 'error', $util.log );
+		log( 'Minify End' );
 		return this.instance;
 	}
 
@@ -148,9 +163,11 @@ class GulpHandler {
 		if( !this.is_active( $arg ) ) {
 			return;
 		}
+		log( 'Bable Start' );
 		let $options  = this.get_config( 'babel', $arg );
 		this.instance = this.instance.pipe( $gbabel( $options ) )
 							.on( 'error', $util.log );
+		log( 'Babel End' );
 		return this.instance;
 	}
 
@@ -163,6 +180,7 @@ class GulpHandler {
 		if( !this.is_active( $arg ) ) {
 			return;
 		}
+		log( 'Concat Start' );
 		let $options = this.get_config( 'concat', $arg );
 
 		if( typeof $options.options === 'object' && typeof $options.options.filename !== 'undefined' ) {
@@ -179,6 +197,7 @@ class GulpHandler {
 			this.instance = this.instance.pipe( $concat( $options ) )
 								.on( 'error', $util.log );
 		}
+		log( 'Concat End' );
 		return this.instance;
 	}
 
@@ -191,9 +210,10 @@ class GulpHandler {
 		if( !this.is_active( $arg ) ) {
 			return;
 		}
-
+		log( 'Combine Files Start' );
 		let $options  = this.get_config( 'combine_files', $arg );
 		this.instance = this.instance.pipe( $combine_files( $options ) );
+		log( 'Combine Files End' );
 	}
 
 	/**
@@ -205,12 +225,17 @@ class GulpHandler {
 		if( !this.is_active( $arg ) ) {
 			return;
 		}
-		let $options  = this.get_config( 'webpack', $arg );
-		this.instance = this.instance.pipe( $revert_path() );
-		let $web_pack = $webpack( $options );
-		this.instance = this.instance.pipe( $web_pack );
-		this.instance = this.instance.pipe( $revert_path() );
 
+		return new Promise( ( resolve, reject ) => {
+			log( 'Webpack Start' );
+			let $options  = this.get_config( 'webpack', $arg );
+			this.instance = this.instance.pipe( $revert_path() );
+			let $web_pack = $webpack( $options );
+			this.instance = this.instance.pipe( $web_pack );
+			this.instance = this.instance.pipe( $revert_path() );
+			log( 'Webpack End' );
+			resolve();
+		} );
 	}
 }
 
