@@ -1,51 +1,42 @@
 {
-	"name": "gulp-boilerplate",
-	"version": "1.0.0",
-	"description": "Simple Custom Gulp Boilerplate",
-	"main": "gulpfile.js",
+	"name": "vs-gulp-boilerplate",
+	"version": "1.0.9",
+	"description": "a simple boilerplate",
+	"main": "index.js",
+	"bugs": {
+		"url": "https://github.com/varunsridharan/gulp-boilerplate/issues"
+	},
+	"homepage": "https://github.com/varunsridharan/gulp-boilerplate#readme",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"watch": "gulp watch"
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"homepage": "https://github.com/varunsridharan/gulp-boilerplate",
-	"author": {
-		"name": "Varun Sridharan",
-		"email": "varunsridharan23@gmail.com",
-		"url": "http://varunsridharan.in"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/varunsridharan/gulp-boilerplate"
-	},
-	"engines": {
-		"node": ">= 0.8.0"
-	},
-	"license": "GPL-3.0",
-	"devDependencies": {
+	"author": "Varun Sridharan <varunsridharan23@gmail.com> (http://varunsridharan.in)",
+	"license": "GPL-3.0-or-later",
+	"dependencies": {
+		"@babel/core": "^7.4.3",
 		"@babel/preset-env": "^7.1.0",
 		"babel-core": "^6.26.3",
 		"babel-loader": "^7.1.5",
 		"babel-preset-es2015": "^6.24.1",
-		"gulp": "^3.9.1",
+		"fancy-log": "^1.3.3",
+		"gulp": "^4.0.0",
 		"gulp-autoprefixer": "^6.0.0",
 		"gulp-babel": "^8.0.0",
-		"gulp-better-rollup": "^3.4.0",
 		"gulp-clean-css": "^3.10.0",
 		"gulp-combine-files": "^1.0.3",
 		"gulp-concat": "^2.6.1",
 		"gulp-notify": "^3.2.0",
-		"gulp-parcel": "^0.3.5",
+		"gulp-rename": "^1.4.0",
 		"gulp-revert-path": "^2.0.0",
 		"gulp-sass": "^4.0.2",
 		"gulp-sourcemaps": "^2.6.4",
 		"gulp-uglify": "^3.0.1",
-		"gulp-util": "^3.0.8",
-		"gulp-wp-pot": "^2.3.2",
-		"parcel-bundler": "^1.10.3",
-		"rollup-plugin-babel": "^4.0.3",
-		"rollup-plugin-node-resolve": "^3.4.0",
+		"js-parse-args": "^1.0.1",
+		"lodash": "^4.17.11",
+		"require-dir": "^1.2.0",
 		"run-sequence": "^2.2.1",
+		"vsp-js-helper": "^1.0.27",
 		"webpack": "^4.22.0",
-		"webpack-stream": "^5.1.1"
+		"webpack-stream": "5.0.0"
 	}
 }
