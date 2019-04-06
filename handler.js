@@ -45,7 +45,9 @@ class GulpHandler {
 
 		return Promise.all( $promises ).then( () => {
 			this.save();
-			resolve();
+			if( typeof resolve === 'function' ) {
+				resolve();
+			}
 		} );
 
 	}
@@ -254,8 +256,9 @@ class GulpHandler {
 			$this.instance = $this.instance.pipe( $webpack( $options, null, ( a, c ) => {
 				$this.instance = $this.instance.pipe( $revert_path() );
 				log( 'Webpack End' );
-				resolve();
 			} ) );
+			$this.instance = $this.instance.pipe( $revert_path() );
+			resolve();
 		} );
 	}
 }
