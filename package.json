@@ -1,12 +1,12 @@
 {
-  "name"         : "better-gulp-boilerplate",
+  "name"         : "better-gulp-tasker",
   "version"      : "1.0.13",
-  "description"  : "a simple boilerplate",
+  "description"  : "mainly focused on simplifying on creating gulp config / task to speed up the development process.",
   "main"         : "index.js",
   "bugs"         : {
-	"url" : "https://github.com/varunsridharan/gulp-boilerplate/issues"
+	"url" : "https://github.com/varunsridharan/better-gulp-tasker/issues"
   },
-  "homepage"     : "https://github.com/varunsridharan/gulp-boilerplate#readme",
+  "homepage"     : "https://github.com/varunsridharan/better-gulp-tasker#readme",
   "scripts"      : {
 	"test" : "echo \"Error: no test specified\" && exit 1"
   },

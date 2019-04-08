@@ -53,7 +53,7 @@ $gulp.task( 'watch', ( callback ) => {
 	}
 } );
 
-$gulp.task( 'call', ( callback ) => {
+$gulp.task( 'compile', ( callback ) => {
 	let $config = get_config();
 
 	async function processArray( array, src = null ) {
