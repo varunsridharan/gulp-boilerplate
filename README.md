@@ -1,3 +1,10 @@
+<p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+
+
 # Better Gulp Tasker
 This **Better Gulp Tasker** is mainly focused on simplifying on creating gulp config / task 
 to speed up the development process.
@@ -89,6 +96,18 @@ module.exports = {
 	},
 };
 ```
+
+### Step 4
+Run any of the below cmd to use this plugin
+
+The below cmd will compile all the files are listed in the config.js / gulp-config.js
+> $ gulp compile
+
+The below cmd will trigger `gulp.watch` function to keep track of files changes and compiles the given file.
+> $ gulp watch
+
+---
+
 ## Builtin Tasks
 Blow is a list of task / config options for each file object.
 
