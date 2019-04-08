@@ -1,45 +1,89 @@
-# VS Gulp Boilerplate
-
-This boilerplate is mainly focused on 2 things `SCSS => CSS` & `EM-6 JS => EM-5 JS`
+# Better Gulp Boilerplate
+This boilerplate is mainly focused on simplifying on creating gulp config / task 
 
 ## Features / Plugins
-<details>
-<summary>Webpack & Babel </summary>
-
+### Javascript 
 * [Babel Core](https://www.npmjs.com/package/babel-core)
-* [Webpack](https://www.npmjs.com/package/webpack)
-* [Loader](https://www.npmjs.com/package/babel-loader)
-* [es2015](https://www.npmjs.com/package/babel-preset-es2015)
+* [Babel Preset es2015](https://www.npmjs.com/package/babel-preset-es2015)
+* [Babel Loader](https://www.npmjs.com/package/babel-loader)
 * [Webpack Stream](https://www.npmjs.com/package/webpack-stream)
+* [Gulp Uglify](https://www.npmjs.com/package/gulp-uglify)
 
-</details>
-
-<details>
-<summary>Gulp Core</summary>
-
-* [Gulp Notify](https://www.npmjs.com/package/gulp-notify)
-* [Gulp Util](https://www.npmjs.com/package/gulp-util)
-* [Gulp Concat](https://www.npmjs.com/package/gulp-concat)
-* [Gulp Sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
-* [Gulp Combine Files](https://www.npmjs.com/package/gulp-combine-files)
-* [Run sequence](https://www.npmjs.com/package/run-sequence)
-
-</details>
-
-<details>
-<summary>Gulp SCSS/CSS</summary>
-
+### SCSS
 * [Gulp Autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 * [Gulp Clean CSS](https://www.npmjs.com/package/gulp-clean-css)
 * [Gulp sass](https://www.npmjs.com/package/gulp-sass)
-* [Gulp Uglify](https://www.npmjs.com/package/gulp-uglify)
 
-</details>
+### Gulp Plugins
+* [Gulp Concat](https://www.npmjs.com/package/gulp-concat)
+* [Gulp Combine Files](https://www.npmjs.com/package/gulp-combine-files)
 
 ---
 
-## Usage / Options
-You have to configure the config.js based on your requirement.
+## Usage / Options 
+### Step 1
+Run the below cmd first
+`npm install better-gulp-boilerplate --save-dev`
+
+### Step 2
+Create a ***gulpfile.js*** in your project root
+and add the blow line
+
+```js
+const $gulp_tasker = require('better-gulp-tasker');
+```
+> Sample ***gulpfile.js***
+```javascript
+const $gulp_tasker = require( 'better-gulp-tasker' );
+const $gulp        = require( 'gulp' );
+
+
+$gulp.task( 'your-task', () => {
+	// Your Custom Tax Code.
+} );
+```
+
+
+### Step 3 
+Create ***gulp-config.js*** OR ***config.js***
+with the file configs.
+
+> Sample Config File
+```javascript
+module.exports = {
+	files: {
+		// Single Compile Options
+		'dir/your-file-source': {
+			dist: 'path-to-save',
+			rename: 'custom-file-name',
+			bable: true,
+		},
+
+		// Multiple Compile Options
+		'dir2/your-file-source': [
+			{
+				dist: 'path-to-save',
+				rename: 'custom-file-name',
+				bable: true
+			},
+			{
+				dist: 'path-to-save',
+				rename: 'custom-file-name',
+				bable: true,
+				uglify: true
+			}
+		]
+	},
+
+	config: {
+		// Here you can write your custom config
+		bable_custom_config1: {
+			presets: [ '@babel/env' ],
+		}
+	},
+};
+```
+
 
 ## Gulp Task List
 
@@ -178,7 +222,21 @@ Use can provide gulp about your JS / CSS child files for each and every file. pl
 You can write your custom gulp task inside `gulp-custom.js` file which will never get overrided. and its safe to have all your Gulp task inside another file.
 and it automatically dose includes. so you dont have any do anything else. 
 
-
 ---
-## Sponsored By
-[![DigitalOcean](https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/DO_Logo_Horizontal_Blue.png)](https://s.svarun.in/Ef)
+## Contribute
+If you would like to help, please take a look at the list of
+[issues](https://github.com/varunsridharan/better-gulp-tasker/issues) or the [To Do](#-todo) checklist.
+
+## License
+This project is licensed under **General Public License v3.0 license**. See the [LICENSE](LICENSE) file for more info.
+
+## Copyright
+2017 - 2018 Varun Sridharan, [varunsridharan.in](https://varunsridharan.in/)
+
+If you find it useful, let me know :wink:
+
+You can contact me on [Twitter](https://twitter.com/varunsridharan2) or through my [email](mailto:varunsridharan23@gmail.com).
+
+## Backed By
+| [![DigitalOcean](https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/DO_Logo_Horizontal_Blue-small.png)](https://s.svarun.in/Ef)           | [![JetBrains](https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/phpstorm-small.png?v3)](https://www.jetbrains.com) |  [![Tidio Chat](https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/tidiochat-small.png)](https://tidiochat.com) |
+| --- | --- | --- |
