@@ -89,9 +89,25 @@ module.exports = {
 	},
 };
 ```
+## Builtin Tasks
+Blow is a list of task / config options for each file object.
 
+### General
+* `dist:'file-save-path` | Location On Where To Save The File.
+* `rename:'custom-file-name` | Custom File Name To Save Compiled File
+* `watch:['file1','file2','file3'] ` | An Array of files to keep an eye for change to trigger its tasks
+* `concat:true` | Please Refer To [Gulp Concat](http://npmjs.com/package/gulp-concat)
+* `combine_files:true` | Please Refer To [Gulp Combine Files](https://www.npmjs.com/package/gulp-combine-files)
 
+### SCSS / CSS
+* `scss:true` | Converts SCSS Into CSS
+* `minify:true` | Minify Source.
+* `autoprefixer:true` | Autoprefix All CSS Properties.
 
+### Javascript
+* `webpack:true` | Run's Webpack To Compile / Bundle a file
+* `bable:true` | Run's Babel To Convert **EM6 => EM6**
+* `uglify:true` | Minify JS Soure Code
 
 ---
 ## Contribute
