@@ -57,7 +57,12 @@ module.exports = {
 		'dir/your-file-source': {
 			dist: 'path-to-save',
 			rename: 'custom-file-name',
-			bable: true,
+			bable: {
+			// Your Custom Config For **Babel** 
+			// Or Set True to use deafult config provided by Better Gulp Tasker Plugin.
+			// If not pass a custom string and use that string in the config array to build your own common config.
+			}
+			watch:['file1','file2','file3'] // enter the files that are needed to be watched to trigger the above actions.
 		},
 
 		// Multiple Compile Options
