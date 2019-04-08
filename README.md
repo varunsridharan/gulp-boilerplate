@@ -8,6 +8,7 @@
 # Better Gulp Tasker
 This **Better Gulp Tasker** is mainly focused on simplifying on creating gulp config / task 
 to speed up the development process.
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Gitter chat][gitter-image]][gitter-url]
 
 ## Features / Plugins
 ### Javascript 
@@ -146,3 +147,11 @@ You can contact me on [Twitter](https://twitter.com/varunsridharan2) or through 
 ## Backed By
 | [![DigitalOcean](https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/DO_Logo_Horizontal_Blue-small.png)](https://s.svarun.in/Ef)           | [![JetBrains](https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/phpstorm-small.png?v3)](https://www.jetbrains.com) |  [![Tidio Chat](https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/tidiochat-small.png)](https://tidiochat.com) |
 | --- | --- | --- |
+
+
+[downloads-image]: http://img.shields.io/npm/dm/better-gulp-tasker.svg
+[npm-url]: https://www.npmjs.com/package/better-gulp-tasker
+[npm-image]: http://img.shields.io/npm/v/better-gulp-tasker.svg
+
+[gitter-url]: https://gitter.im/gulpjs/gulp
+[gitter-image]: https://badges.gitter.im/gulpjs/gulp.svg
