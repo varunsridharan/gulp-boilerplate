@@ -112,8 +112,8 @@ The below cmd will trigger `gulp.watch` function to keep track of files changes 
 Blow is a list of task / config options for each file object.
 
 ### General
-* `dist:'file-save-path` | Location On Where To Save The File.
-* `rename:'custom-file-name` | Custom File Name To Save Compiled File
+* `dist:'file-save-path'` | Location On Where To Save The File.
+* `rename:'custom-file-name'` | Custom File Name To Save Compiled File
 * `watch:['file1','file2','file3'] ` | An Array of files to keep an eye for change to trigger its tasks
 * `concat:true` | Please Refer To [Gulp Concat](http://npmjs.com/package/gulp-concat)
 * `combine_files:true` | Please Refer To [Gulp Combine Files](https://www.npmjs.com/package/gulp-combine-files)
