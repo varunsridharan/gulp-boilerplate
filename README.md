@@ -3,9 +3,9 @@
     <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
   </a>
 </p>
-
+<p align="center">
 [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Gitter chat][gitter-image]][gitter-url]
-
+</p>
 
 # Better Gulp Tasker
 This **Better Gulp Tasker** is mainly focused on simplifying on creating gulp config / task 
