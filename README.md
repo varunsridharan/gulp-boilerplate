@@ -4,11 +4,12 @@
   </a>
 </p>
 
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Gitter chat][gitter-image]][gitter-url]
+
 
 # Better Gulp Tasker
 This **Better Gulp Tasker** is mainly focused on simplifying on creating gulp config / task 
 to speed up the development process.
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Gitter chat][gitter-image]][gitter-url]
 
 ## Features / Plugins
 ### Javascript 
