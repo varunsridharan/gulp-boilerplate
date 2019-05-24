@@ -24,7 +24,7 @@
 	"gulp-uglify"         : "^3.0.1",
 	"gulp-babel"          : "^8.0.0",
 	"gulp-clean-css"      : "^4.2.0",
-	"gulp-autoprefixer"   : "^6.0.0",
+	"gulp-autoprefixer"   : "^6.1.0",
 	"gulp-combine-files"  : "^1.0.3",
 	"gulp-concat"         : "^2.6.1",
 	"vsp-js-helper"       : "^1.0.27",
