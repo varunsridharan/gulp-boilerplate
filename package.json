@@ -27,7 +27,7 @@
 	"gulp-autoprefixer"   : "^6.0.0",
 	"gulp-combine-files"  : "^1.0.3",
 	"gulp-concat"         : "^2.6.1",
-	"vsp-js-helper"       : "^1.0.27",
+	"vsp-js-helper"       : "^1.0.32",
 	"gulp-rename"         : "^1.4.0",
 	"fancy-log"           : "^1.3.3",
 	"supports-color"      : "^6.1.0",
