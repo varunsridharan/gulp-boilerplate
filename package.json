@@ -30,7 +30,7 @@
 	"vsp-js-helper"       : "^1.0.32",
 	"gulp-rename"         : "^1.4.0",
 	"fancy-log"           : "^1.3.3",
-	"supports-color"      : "^6.1.0",
+	"supports-color"      : "^7.0.0",
 	"webpack-stream"      : "5.2.1"
   }
 }
