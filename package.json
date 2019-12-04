@@ -28,7 +28,7 @@
 	"gulp-combine-files"  : "^1.0.3",
 	"gulp-concat"         : "^2.6.1",
 	"vsp-js-helper"       : "^1.0.32",
-	"gulp-rename"         : "^1.4.0",
+	"gulp-rename"         : "^2.0.0",
 	"fancy-log"           : "^1.3.3",
 	"supports-color"      : "^7.0.0",
 	"webpack-stream"      : "5.2.1"
